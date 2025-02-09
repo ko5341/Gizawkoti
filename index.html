@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A simple landing page for hosting.">
+    <meta name="theme-color" content="#000000">
     <link rel="manifest" href="/manifest.json">
     <title>My Hosted Website</title>
     <style>
@@ -116,14 +117,16 @@
     }
 
     if (!isMobileOrTablet()) {
-        // Redirect desktop users to a different page or show a message
-        document.body.innerHTML = `
-            <div style="text-align: center; padding: 50px;">
-                <h1>This website is designed for mobile and tablet devices only.</h1>
-                <p>Please visit this site on a mobile or tablet device.</p>
-            </div>
-        `;
-    }
+    const warningDiv = document.createElement('div');
+    warningDiv.style.textAlign = "center";
+    warningDiv.style.padding = "50px";
+    warningDiv.innerHTML = `
+        <h1>This website is designed for mobile and tablet devices only.</h1>
+        <p>Please visit this site on a mobile or tablet device.</p>
+    `;
+    document.body.prepend(warningDiv);
+}
+
     </script>
         <script>
     if ('serviceWorker' in navigator) {
