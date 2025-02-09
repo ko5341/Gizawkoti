@@ -2,9 +2,9 @@ const CACHE_NAME = 'my-mobile-app-cache-v1';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/styles/main.css',
-    '/scripts/main.js',
-    '/images/logo.png'
+    '/manifest.json',
+    '/Hsm-icon-192x192.png',
+    '/delicious_512x512.png',
 ];
 
 self.addEventListener('install', (event) => {
