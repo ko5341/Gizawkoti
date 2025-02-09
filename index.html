@@ -139,29 +139,42 @@
             });
     }
     </script>
-    <button id="install-button" style="display: none;">Install App</button>
-    <script>
+    <!-- Install button (Visible but disabled by default) -->
+<button id="install-button" disabled>Install App</button>
+<p id="install-message" style="display: none;">Your browser may not support PWA installation.</p>
+
+<script>
     let deferredPrompt;
 
     window.addEventListener('beforeinstallprompt', (event) => {
         event.preventDefault();
         deferredPrompt = event;
-        // Show a custom "Install App" button
-        document.getElementById('install-button').style.display = 'block';
-    });
 
-    document.getElementById('install-button').addEventListener('click', () => {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-            } else {
-                console.log('User dismissed the install prompt');
-            }
-            deferredPrompt = null;
+        // Enable the install button
+        const installButton = document.getElementById('install-button');
+        installButton.disabled = false;
+        installButton.style.display = 'block';
+
+        installButton.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
         });
     });
-    </script>
+
+    // If the event does not fire, show a fallback message
+    setTimeout(() => {
+        if (!deferredPrompt) {
+            document.getElementById('install-message').style.display = 'block';
+        }
+    }, 3000);
+</script>
     
 </body>
 </html>
